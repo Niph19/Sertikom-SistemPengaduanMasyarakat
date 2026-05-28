@@ -37,22 +37,30 @@
                                 <td class="py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="shrink-0 w-8 h-8">
-                                            <img class="w-8 h-8 rounded-full" src="{{ $complaint->photo ?? asset('images/brand/brand-01.svg') }}" alt="Foto Pengaduan">
+                                            <img class="w-8 h-8 rounded-md" src="{{ asset('storage/' . $complaint->photo) }}" alt="Foto Pengaduan">
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-4 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->user_id }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->user->name }}</div>
                                 </td>
                                 <td class="px-4 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-bold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
+                                    <div class="text-sm font-semibold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
                                     <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->description }}</div>
                                 </td>
                                 <td class="px-4 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
                                 </td>
                                 <td class="px-4 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-700">{{ $complaint->status }}</span>
+                                    @if($complaint->status === 'Pending')
+                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600">{{ $complaint->status }}</span>
+                                    @elseif($complaint->status === 'Diproses')
+                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-200 text-blue-600">{{ $complaint->status }}</span>
+                                    @elseif($complaint->status === 'Selesai')
+                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-600">{{ $complaint->status }}</span>
+                                    @elseif($complaint->status === 'Ditolak')
+                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600">{{ $complaint->status }}</span>
+                                    @endif
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium text-right whitespace-nowrap">
                                     <div class="flex justify-center relative">

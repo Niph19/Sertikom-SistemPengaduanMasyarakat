@@ -11,22 +11,47 @@ use Illuminate\View\View;
 
 class ComplaintController extends Controller
 {
-    // public function index() {
-    //     $pengaduan = Complaint::all();
-    //     return view('complaints.pengaduan', compact('pengaduan'));
-    // }
+    public function form()
+    {
+        return view('complaints.create');
+    }
+    public function index()
+    {
+        $user = Auth::user();
 
+        if ($user->role === 'admin') {
+            $pengaduan = Complaint::with('user')->get();
+            return view('complaints.admin-index', compact('pengaduan'));
+        }
+
+        $pengaduan = Complaint::with('user')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return view('complaints.user-index', compact('pengaduan'));
+    }
     public function store(Request $request) {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'location' => 'required',
-            'photo' => 'required',
+            'judul_pengaduan' => 'required',
+            'deskripsi_pengaduan' => 'required',
+            'lokasi_pengaduan' => 'required',
+            'foto_pengaduan' => 'required|image|mimes:jpg,jpeg,png',
         ]);
 
-        // complaint::create([
+        // menyimpan foto
+        $photo =null;
+        if ($request->hasFile('foto_pengaduan')) {
+            $photo = $request->file('foto_pengaduan')->store('pengaduan_images', 'public');
+        }
 
-        // ])
+        complaint::create([
+            'user_id' => Auth::id(),
+            'title' => $request->judul_pengaduan,
+            'description' => $request->deskripsi_pengaduan,
+            'location' => $request->lokasi_pengaduan,
+            'photo' => $photo,
+        ]);
+
         return redirect()->route('pengaduan.index');
     }
 
@@ -35,21 +60,18 @@ class ComplaintController extends Controller
         return view('complaint.pengaduan', compact('pengaduan'));
     }
 
-    public function index(){
-        $role = Auth::user()->role;
-        // if ($role == 'admin') {
+    public function upload(Request $request): RedirectResponse {
+        $request->validate([
+            'photo' => 'required|nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-        //     // admin melihat semua pengaduan
-        //     $pengaduan = Complaint::with(['user', 'pengaduan'])
-        //         ->get();
-        // } else {
-
-        //     // masyarakat melihat milik sendiri
-            $pengaduan = Complaint::with(['user', 'pengaduan'])
-                ->where('user_id', $role)
-                ->get();
-        // }
-
-        return view('complaints.laporan_pengaduan', compact('pengaduan'));
+        $photo = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo')->store('pengaduan_images', 'public');
+            
+            // Simpan path foto ke database atau lakukan tindakan lain yang diperlukan
+            return redirect()->back()->with('success', 'Foto berhasil diunggah.');
+        }
+        return redirect()->back()->with('error', 'Gagal mengunggah foto.');
     }
 }

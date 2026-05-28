@@ -19,7 +19,7 @@ class MenuHelper
             [
                 'icon' => 'forms',
                 'name' => 'Laporan Pengaduan',
-                'path' => '/laporan_pengaduan',
+                'path' => '/admin_pengaduan',
             ],
             [
                 'icon' => 'user-profile',
@@ -38,7 +38,12 @@ class MenuHelper
             [
                 'icon' => 'forms',
                 'name' => 'Pengaduan',
-                'path' => '/pengaduan',
+                'path' => '/user_pengaduan',
+            ],
+            [
+                'icon' => 'forms',
+                'name' => 'Buat Pengaduan Baru',
+                'path' => '/form_pengaduan',
             ],
             [
                 'icon' => 'user-profile',

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('location');
             $table->string('photo');
-            $table->enum('status', ['pending', 'diproses', 'selesai', 'ditolak'])->default('pending');
+            $table->enum('status', ['Pending', 'Diproses', 'Selesai', 'Ditolak'])->default('Pending');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });
