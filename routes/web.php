@@ -94,22 +94,29 @@ Route::get('/videos', function () {
     return view('pages.ui-elements.videos', ['title' => 'Videos']);
 })->name('videos');
 
-// Admin
-Route::get('/dashboard_admin', function () {
-    return view('dashboard.admin', ['title' => 'Dashboard Admin']);
-})->name('dashboard.admin');
 
 // Masyarakat
 Route::get('/dashboard_masyarakat', [DashboardController::class, 'index'])->name('dashboard_masyarakat.user');
 
-// menyimpan data pengaduan user
+// menyimpan data pengaduan Masyarakat
 Route::post('/form_pengaduan', [ComplaintController::class, 'store'])->name('create.store');
 
-// tampil data pengaduan user
+// tampil data pengaduan Masyarakat
 Route::get('/user_pengaduan', [ComplaintController::class, 'index'])->name('pengaduan.index');
 
-// Form input pengaduan
+// Form input pengaduan Masyarakat
 Route::get('/form_pengaduan', [ComplaintController::class, 'form'])->name('create.form');
+
+// Menampilkan form yang sudah ada untuk diedit
+Route::get('/pengaduan/{id}/edit', [ComplaintController::class, 'edit'])->name('pengaduan.edit');
+
+// Proses update data pengaduan
+Route::put('/pengaduan/{id}', [ComplaintController::class, 'update'])->name('pengaduan.update');
+
+// Admin
+Route::get('/dashboard_admin', function () {
+    return view('dashboard.admin', ['title' => 'Dashboard Admin']);
+})->name('dashboard.admin');
 
 // tampil data laporan pengaduan admin
 Route::get('/admin_pengaduan', [ComplaintController::class, 'index'])->name('admin_pengaduan.index');

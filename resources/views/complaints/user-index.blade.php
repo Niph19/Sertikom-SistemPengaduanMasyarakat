@@ -68,6 +68,7 @@
                                     </td>
                                     <td class="p-4 text-white whitespace-nowrap">
                                         <div class="flex gap-1.5 items-center justify-center">
+                                            <a href="{{ route('pengaduan.edit', $complaint->id) }}" class="text-blue-300 hover:text-blue-500">Edit</a>
                                                 <form id="delete-id-{{ $complaint->id }}" action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')

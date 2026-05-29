@@ -7,6 +7,7 @@ use App\Models\Complaint;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ComplaintController extends Controller
@@ -85,5 +86,41 @@ class ComplaintController extends Controller
             return redirect()->back()->with('success', 'Foto berhasil diunggah.');
         }
         return redirect()->back()->with('error', 'Gagal mengunggah foto.');
+    }
+
+    public function edit($id)
+    {
+        $pengaduan = Complaint::findOrFail($id);
+        return view('complaints.edit', compact('pengaduan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $pengaduan = Complaint::findOrFail($id);
+
+        $request->validate([
+            'judul_pengaduan' => 'required',
+            'deskripsi_pengaduan' => 'required',
+            'lokasi_pengaduan' => 'required',
+            'foto_pengaduan' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if($request->hasFile('foto_pengaduan')) {
+            if ($pengaduan->photo) {
+                Storage::disk('public')->delete($pengaduan->photo);
+            }
+            $photo = $request->file('foto_pengaduan')->store('pengaduan_images', 'public');
+        } else {
+            $photo = $pengaduan->photo;
+        }
+
+        $pengaduan->update([
+            'title' => $request->judul_pengaduan,
+            'description' => $request->deskripsi_pengaduan,
+            'location' => $request->lokasi_pengaduan,
+            'photo' => $photo,
+        ]);
+
+        return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil diperbarui.');
     }
 }
