@@ -23,51 +23,55 @@
                     <table class="min-w-full">
                         <thead>
                             <tr class="border-gray-200 border-y dark:border-gray-700">
-                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">No</th>
-                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Foto</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">No</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Foto</th>
                                 <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Judul Pengaduan</th>
-                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Lokasi</th>
-                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Status</th>
-                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Actions</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Lokasi</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Tanggal</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Status</th>
+                                <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach ($pengaduan as $complaint)
                                 <tr>
-                                    <td class="px-4 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->id }}</div>
+                                    <td class="px-4 py-4 text-center whitespace-nowrap">
+                                        <div class="text-lg  text-gray-500 dark:text-gray-400">{{ $complaint->id }}</div>
                                     </td>
                                     <td class="py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="shrink-0 w-8 h-8">
-                                                <img class="w-8 h-8 rounded-full" src="{{ asset('storage/' . $complaint->photo) }}" alt="Foto Pengaduan">
+                                        <div class="flex items-center justify-center">
+                                            <div class="shrink-0 w-18 h-18">
+                                                <img class="w-18 h-18 rounded-md object-cover" src="{{ asset('storage/' . $complaint->photo) }}" alt="Foto Pengaduan">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap">
                                         <div class="text-sm font-bold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->description }}</div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400 ">{{ Str::limit($complaint->description, 100) }}</div>
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
+                                    <td class="px-4 py-4 text-center whitespace-nowrap">
+                                        <div class="text-md text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-4 text-center whitespace-nowrap">
+                                        <div class="text-md text-gray-500 dark:text-gray-400">{{ $complaint->created_at->format('d M Y') }}</div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center whitespace-nowrap">
                                         @if($complaint->status === 'Pending')
-                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600">{{ $complaint->status }}</span>
+                                    <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600">{{ $complaint->status }}</span>
                                     @elseif($complaint->status === 'Diproses')
-                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-200 text-blue-600">{{ $complaint->status }}</span>
+                                    <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-200 text-blue-600">{{ $complaint->status }}</span>
                                     @elseif($complaint->status === 'Selesai')
-                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-600">{{ $complaint->status }}</span>
+                                    <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-200 text-green-600">{{ $complaint->status }}</span>
                                     @elseif($complaint->status === 'Ditolak')
-                                    <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600">{{ $complaint->status }}</span>
+                                    <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-red-200 text-red-600">{{ $complaint->status }}</span>
                                     @endif
                                     </td>
                                     <td class="p-4 text-white whitespace-nowrap">
-                                        <div class="flex gap-1.5">
+                                        <div class="flex gap-1.5 items-center justify-center">
                                                 <form id="delete-id-{{ $complaint->id }}" action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="text-red-400" type="submit" onclick="confirmDelete(">
+                                                <button class="text-red-300 items-center justfiy-center" type="submit" onclick="confirmDelete()">
                                                     Delete
                                                 </button>
                                             </form>
