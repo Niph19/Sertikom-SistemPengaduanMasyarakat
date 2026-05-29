@@ -103,7 +103,6 @@ Route::get('/dashboard_admin', function () {
 Route::get('/dashboard_masyarakat', [DashboardController::class, 'index'])->name('dashboard_masyarakat.user');
 
 // menyimpan data pengaduan user
-// Route::post('/store_pengaduan', [ComplaintController::class, 'store'])->name('create.store');
 Route::post('/form_pengaduan', [ComplaintController::class, 'store'])->name('create.store');
 
 // tampil data pengaduan user
@@ -114,6 +113,9 @@ Route::get('/form_pengaduan', [ComplaintController::class, 'form'])->name('creat
 
 // tampil data laporan pengaduan admin
 Route::get('/admin_pengaduan', [ComplaintController::class, 'index'])->name('admin_pengaduan.index');
+
+// hapus data pengaduan
+Route::delete('/pengaduan/{id}', [ComplaintController::class, 'destroy'])->name('pengaduan.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -30,7 +30,8 @@ class ComplaintController extends Controller
 
         return view('complaints.user-index', compact('pengaduan'));
     }
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'judul_pengaduan' => 'required',
             'deskripsi_pengaduan' => 'required',
@@ -39,7 +40,7 @@ class ComplaintController extends Controller
         ]);
 
         // menyimpan foto
-        $photo =null;
+        $photo = null;
         if ($request->hasFile('foto_pengaduan')) {
             $photo = $request->file('foto_pengaduan')->store('pengaduan_images', 'public');
         }
@@ -55,12 +56,23 @@ class ComplaintController extends Controller
         return redirect()->route('pengaduan.index');
     }
 
-    public function show($id): View {
+    public function show($id): View
+    {
         $pengaduan = Complaint::findOrFail($id);
         return view('complaint.pengaduan', compact('pengaduan'));
     }
 
-    public function upload(Request $request): RedirectResponse {
+
+    public function destroy($id)
+    {
+        $pengaduan = Complaint::findOrFail($id);
+        $pengaduan->delete();
+
+        return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil dihapus.');
+    }
+
+    public function upload(Request $request): RedirectResponse
+    {
         $request->validate([
             'photo' => 'required|nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -68,7 +80,7 @@ class ComplaintController extends Controller
         $photo = null;
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo')->store('pengaduan_images', 'public');
-            
+
             // Simpan path foto ke database atau lakukan tindakan lain yang diperlukan
             return redirect()->back()->with('success', 'Foto berhasil diunggah.');
         }

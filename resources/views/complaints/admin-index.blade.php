@@ -22,7 +22,7 @@
                             <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Pelapor</th>
                             <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Judul Pengaduan</th>
                             <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Lokasi</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Status</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Status</th>
                             <th scope="col" class="relative px-4 py-3 capitalize">
                                 <span class="sr-only">Actions</span>
                             </th>
@@ -51,7 +51,7 @@
                                 <td class="px-4 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
                                 </td>
-                                <td class="px-4 py-4 whitespace-nowrap">
+                                <td class="px-4 py-4 text-center whitespace-nowrap">
                                     @if($complaint->status === 'Pending')
                                     <span class="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600">{{ $complaint->status }}</span>
                                     @elseif($complaint->status === 'Diproses')
@@ -74,11 +74,15 @@
         
                                             <x-slot name="content">
                                                 <a href="#" class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300" role="menuitem">
-                                                    View More
+                                                    Respon
                                                 </a>
-                                                <a href="#" class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300" role="menuitem">
+                                                <form id="delete-id-{{ $complaint->id }}" action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" href="#" class="flex w-full px-3 py-2 font-medium text-left text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300" role="menuitem">
                                                     Delete
-                                                </a>
+                                                </button>
+                                                </form>
                                             </x-slot>
                                         </x-common.table-dropdown>
                                     </div>

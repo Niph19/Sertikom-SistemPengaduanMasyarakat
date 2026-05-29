@@ -64,8 +64,7 @@
                                     </td>
                                     <td class="p-4 text-white whitespace-nowrap">
                                         <div class="flex gap-1.5">
-                                            <form id="" action="" method="POST"
-                                                onsubmit="">
+                                                <form id="delete-id-{{ $complaint->id }}" action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="text-red-400" type="submit" onclick="confirmDelete(">
