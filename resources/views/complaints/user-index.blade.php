@@ -36,7 +36,7 @@
                             @foreach ($pengaduan as $complaint)
                                 <tr>
                                     <td class="px-4 py-4 text-center whitespace-nowrap">
-                                        <div class="text-lg  text-gray-500 dark:text-gray-400">{{ $complaint->id }}</div>
+                                        <div class="text-lg  text-gray-500 dark:text-gray-400">{{ $loop->iteration }}</div>
                                     </td>
                                     <td class="py-4 whitespace-nowrap">
                                         <div class="flex items-center justify-center">
@@ -47,10 +47,10 @@
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap">
                                         <div class="text-sm font-bold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400 ">{{ Str::limit($complaint->description, 100) }}</div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400 ">{{ Str::limit($complaint->description, 95) }}</div>
                                     </td>
                                     <td class="px-4 py-4 text-center whitespace-nowrap">
-                                        <div class="text-md text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
+                                        <div class="text-md text-gray-500 dark:text-gray-400">{{ Str::limit($complaint->location, 15) }}</div>
                                     </td>
                                     <td class="px-4 py-4 text-center whitespace-nowrap">
                                         <div class="text-md text-gray-500 dark:text-gray-400">{{ $complaint->created_at->format('d M Y') }}</div>

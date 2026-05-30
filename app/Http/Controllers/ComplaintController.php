@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use App\Models\Response;
 
 class ComplaintController extends Controller
 {
@@ -122,5 +123,52 @@ class ComplaintController extends Controller
         ]);
 
         return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil diperbarui.');
+    }
+
+    public function response($id)
+    {
+        $response = Complaint::findOrfail($id);
+        return view('responses.create', compact('response'));
+    }
+
+    public function responseStore(Request $request, $id): RedirectResponse
+    {
+        $request->validate([
+            'response' => 'required|min:10',
+            'status' => 'required',
+        ]);
+
+        $complaint = Complaint::findOrFail($id);
+
+        $complaint->update([
+            'response' => $request->response,
+            'status' => $request->status,
+        ]);
+
+        Response::create([
+            'complaint_id' => $complaint->id,
+            'admin_id' => Auth::id(),
+            'response' => $request->response,
+        ]);
+
+        return redirect()->route('pengaduan.index');
+    }
+
+    public function ResponseIndex()
+    {
+        $responses = Response::with('complaint', 'admin')->get();
+        return view('responses.index', compact('responses'));
+    }
+
+    public function StatusUpdate(Request $request, $id): RedirectResponse
+    {
+        $request->validate([
+            'status' => 'required|in:Pending,Diproses,Selesai,Ditolak',
+        ]);
+
+        $complaint = Complaint::findOrFail($id);
+        $complaint->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 }

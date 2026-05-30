@@ -17,13 +17,13 @@
                 <table class="min-w-full">
                     <thead>
                         <tr class="border-gray-200 border-y dark:border-gray-700">
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">No</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Foto</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Pelapor</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Judul Pengaduan</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Lokasi</th>
-                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400">Status</th>
-                            <th scope="col" class="relative px-4 py-3 capitalize">
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-10">No.</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-5">Foto</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-13">Pelapor</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400 max-w-60">Judul Pengaduan</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-15">Lokasi</th>
+                            <th scope="col" class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-10">Status</th>
+                            <th scope="col" class="relative pe-2 py-3 capitalize max-w-3">
                                 <span class="sr-only">Actions</span>
                             </th>
                         </tr>
@@ -31,27 +31,27 @@
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                         @foreach ($pengaduan as $complaint)
                             <tr>
-                                <td class="px-4 py-4 text-center whitespace-nowrap">
+                                <td class="px-4 py-4 text-center whitespace-nowrap max-w-10">
                                     <div class="text-lg text-gray-500 dark:text-gray-400">{{ $complaint->id }}</div>
                                 </td>
-                                <td class="py-4 whitespace-nowrap">
+                                <td class="py-4 whitespace-nowrap max-w-5">
                                     <div class="flex items-center justify-center">
                                         <div class="shrink-0 w-18 h-18">
                                             <img class="w-18 h-18 rounded-md object-cover" src="{{ asset('storage/' . $complaint->photo) }}" alt="Foto Pengaduan">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-4 py-4 text-center whitespace-nowrap">
-                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ $complaint->user->name }}</div>
+                                <td class="px-4 py-4 text-center whitespace-nowrap max-w-13">
+                                    <div class="text-sm text-gray-500 max-w-30 dark:text-gray-400">{{ Str::limit($complaint->user->name, 15) }}</div>
                                 </td>
-                                <td class="px-4 py-4 whitespace-nowrap">
+                                <td class="px-4 py-4 whitespace-nowrap max-w-60">
                                     <div class="text-sm font-semibold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
-                                    <div class="text-sm text-gray-500 dark:text-gray-400 max-w-[150px]">{{ $complaint->description }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ Str::limit($complaint->description, 90) }}</div>
                                 </td>
-                                <td class="px-4 py-4 text-center whitespace-nowrap">
-                                    <div class="text-md text-gray-500 dark:text-gray-400">{{ $complaint->location }}</div>
+                                <td class="px-4 py-4 text-center whitespace-nowrap max-w-15">
+                                    <div class="text-md text-gray-500 dark:text-gray-400">{{ Str::limit($complaint->location, 15) }}</div>
                                 </td>
-                                <td class="px-4 py-4 text-center whitespace-nowrap">
+                                <td class="px-4 py-4 text-center whitespace-nowrap max-w-10">
                                     @if($complaint->status === 'Pending')
                                     <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600">{{ $complaint->status }}</span>
                                     @elseif($complaint->status === 'Diproses')
@@ -62,7 +62,7 @@
                                     <span class="px-4 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-red-200 text-red-600">{{ $complaint->status }}</span>
                                     @endif
                                 </td>
-                                <td class="px-4 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                <td class="pe-2 py-4 text-sm font-medium text-right whitespace-nowrap max-w-3">
                                     <div class="flex justify-center relative">
                                         <x-common.table-dropdown>
                                             <x-slot name="button">
@@ -73,7 +73,7 @@
                                             </x-slot>
         
                                             <x-slot name="content">
-                                                <a href="#" class="flex w-full px-3 py-2 font-medium text-center text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300" role="menuitem">
+                                                <a href="{{ route('response.show', $complaint->id) }}" class="flex w-full px-3 py-2 font-medium text-center text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300" role="menuitem">
                                                     Respon
                                                 </a>
                                                 <form id="delete-id-{{ $complaint->id }}" action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">

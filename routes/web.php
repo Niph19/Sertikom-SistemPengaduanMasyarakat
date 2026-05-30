@@ -123,6 +123,18 @@ Route::get('/admin_pengaduan', [ComplaintController::class, 'index'])->name('adm
 
 // hapus data pengaduan
 Route::delete('/pengaduan/{id}', [ComplaintController::class, 'destroy'])->name('pengaduan.destroy');
+
+// Daftar Respon pengaudan
+Route::get('/response_pengaduan', [ComplaintController::class, 'ResponseIndex'])->name('response.index');
+
+// Menuju Respon Pengaduan sesuai id
+Route::get('/response_pengaduan/{id}', [ComplaintController::class, 'response'])->name('response.show');
+
+// Menyimpan data Respon pengaduan
+Route::post('/responser_respon/{id}', [ComplaintController::class, 'responseStore'])->name('complaints.respon.store');
+
+// Update status Pengaduan
+Route::put('/pengaduan/{id}/status', [ComplaintController::class, 'StatusUpdate'])->name('pengaduan.statusUpdate');
 });
 
 require __DIR__.'/auth.php';

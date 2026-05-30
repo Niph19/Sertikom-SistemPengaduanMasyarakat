@@ -22,6 +22,16 @@ class MenuHelper
                 'path' => '/admin_pengaduan',
             ],
             [
+                'icon' => 'forms',
+                'name' => 'Respon Pengaduan',
+                'path' => '/response_pengaduan',
+            ],
+            [
+                'icon' => 'user-profile',
+                'name' => 'Kelola Admin',
+                'path' => '',
+            ],
+            [
                 'icon' => 'user-profile',
                 'name' => 'User Profile',
                 'path' => '/profile',
@@ -47,7 +57,7 @@ class MenuHelper
             ],
             [
                 'icon' => 'user-profile',
-                'name' => 'User Profile',
+                'name' => 'Profil',
                 'path' => '/profile',
             ],
         ];

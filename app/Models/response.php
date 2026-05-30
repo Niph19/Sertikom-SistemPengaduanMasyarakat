@@ -10,7 +10,7 @@ class response extends Model
     protected $fillable = [
         'complaint_id',
         'admin_id',
-    'response',
+        'response',
         'created_at',
         'updated_at',
     ];
