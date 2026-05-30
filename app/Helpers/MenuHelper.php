@@ -12,12 +12,12 @@ class MenuHelper
         if ($role == 'admin') {
         return [
             [
-                'icon' => 'dashboard',
+                'icon' => 'charts',
                 'name' => 'Dashboard',
                 'path' => '/dashboard_admin',
             ],
             [
-                'icon' => 'forms',
+                'icon' => 'tables',
                 'name' => 'Laporan Pengaduan',
                 'path' => '/admin_pengaduan',
             ],
@@ -27,13 +27,13 @@ class MenuHelper
                 'path' => '/response_pengaduan',
             ],
             [
-                'icon' => 'user-profile',
+                'icon' => 'ui-elements',
                 'name' => 'Kelola Admin',
                 'path' => '',
             ],
             [
                 'icon' => 'user-profile',
-                'name' => 'User Profile',
+                'name' => 'Profil',
                 'path' => '/profile',
             ],
         ];
@@ -46,7 +46,7 @@ class MenuHelper
                 'path' => '/dashboard_masyarakat',
             ],
             [
-                'icon' => 'forms',
+                'icon' => 'tables',
                 'name' => 'Pengaduan',
                 'path' => '/user_pengaduan',
             ],
@@ -108,34 +108,7 @@ class MenuHelper
     public static function getOthersItems()
     {
         return [
-            [
-                'icon' => 'charts',
-                'name' => 'Charts',
-                'subItems' => [
-                    ['name' => 'Line Chart', 'path' => '/line-chart', 'pro' => false],
-                    ['name' => 'Bar Chart', 'path' => '/bar-chart', 'pro' => false]
-                ],
-            ],
-            [
-                'icon' => 'ui-elements',
-                'name' => 'UI Elements',
-                'subItems' => [
-                    ['name' => 'Alerts', 'path' => '/alerts', 'pro' => false],
-                    ['name' => 'Avatar', 'path' => '/avatars', 'pro' => false],
-                    ['name' => 'Badge', 'path' => '/badge', 'pro' => false],
-                    ['name' => 'Buttons', 'path' => '/buttons', 'pro' => false],
-                    ['name' => 'Images', 'path' => '/image', 'pro' => false],
-                    ['name' => 'Videos', 'path' => '/videos', 'pro' => false],
-                ],
-            ],
-            [
-                'icon' => 'authentication',
-                'name' => 'Authentication',
-                'subItems' => [
-                    ['name' => 'Sign In', 'path' => '/signin', 'pro' => false],
-                    ['name' => 'Sign Up', 'path' => '/signup', 'pro' => false],
-                ],
-            ],
+            
         ];
     }
 
@@ -146,10 +119,6 @@ class MenuHelper
                 'title' => 'Menu',
                 'items' => self::getMainNavItems()
             ],
-            [
-                'title' => 'Others',
-                'items' => self::getOthersItems()
-            ]
         ];
     }
 
