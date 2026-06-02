@@ -43,7 +43,7 @@ class MenuHelper
             [
                 'icon' => 'dashboard',
                 'name' => 'Dashboard',
-                'path' => '/dashboard_masyarakat',
+                'path' => '/dashboard_user',
             ],
             [
                 'icon' => 'tables',
@@ -59,6 +59,11 @@ class MenuHelper
                 'icon' => 'user-profile',
                 'name' => 'Profil',
                 'path' => '/profile',
+            ],
+            [
+                'icon' => 'calendar',
+                'name' => 'Calendar',
+                'path' => '/basic-tables',
             ],
         ];
     }

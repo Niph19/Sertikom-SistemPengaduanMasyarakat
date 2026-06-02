@@ -14,10 +14,6 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // dashboard pages
-Route::get('/', function () {
-    return view('pages.dashboard.ecommerce', ['title' => 'E-commerce Dashboard']);
-})->name('dashboard');
 
 // calender pages
 Route::get('/calendar', function () {
@@ -96,7 +92,7 @@ Route::get('/videos', function () {
 
 
 // Masyarakat
-Route::get('/dashboard_masyarakat', [DashboardController::class, 'index'])->name('dashboard_masyarakat.user');
+Route::get('/dashboard_user', [DashboardController::class, 'index'])->name('dashboard.user');
 
 // menyimpan data pengaduan Masyarakat
 Route::post('/form_pengaduan', [ComplaintController::class, 'store'])->name('create.store');
@@ -114,9 +110,7 @@ Route::get('/pengaduan/{id}/edit', [ComplaintController::class, 'edit'])->name('
 Route::put('/pengaduan/{id}', [ComplaintController::class, 'update'])->name('pengaduan.update');
 
 // Admin
-Route::get('/dashboard_admin', function () {
-    return view('dashboard.admin', ['title' => 'Dashboard Admin']);
-})->name('dashboard.admin');
+Route::get('/dashboard_admin', [DashboardController::class, 'index'])->name('dashboard.admin');
 
 // tampil data laporan pengaduan admin
 Route::get('/admin_pengaduan', [ComplaintController::class, 'index'])->name('admin_pengaduan.index');
