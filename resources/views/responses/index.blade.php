@@ -44,7 +44,7 @@
                             @foreach ($responses as $res)
                                 <tr>
                                     <td class="px-4 py-4 text-center whitespace-nowrap max-w-10">
-                                        <div class="text-lg text-gray-500 dark:text-gray-400">{{ $res->complaint->id }}</div>
+                                        <div class="text-lg text-gray-500 dark:text-gray-400">{{ $loop->iteration }}</div>
                                     </td>
                                     <td class="py-4 whitespace-nowrap max-w-5">
                                         <div class="flex items-center justify-center">

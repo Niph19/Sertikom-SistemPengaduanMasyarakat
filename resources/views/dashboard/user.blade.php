@@ -118,7 +118,7 @@
                                         <td class="px-4 py-4 whitespace-nowrap">
                                             <div class="text-sm font-bold text-gray-500 dark:text-white">{{ $complaint->title }}</div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400 ">
-                                                {{ Str::limit($complaint->description, 95) }}</div>
+                                                {{ Str::limit($complaint->description, 85) }}</div>
                                         </td>
                                         <td class="px-4 py-4 text-center whitespace-nowrap">
                                             <div class="text-md text-gray-500 dark:text-gray-400">
