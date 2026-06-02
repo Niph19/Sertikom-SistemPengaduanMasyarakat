@@ -2,6 +2,8 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 import ApexCharts from 'apexcharts';
 import 'flowbite';
+import Swal from 'sweetalert2';
+window.Swal = Swal;
 
 // flatpickr
 import flatpickr from 'flatpickr';

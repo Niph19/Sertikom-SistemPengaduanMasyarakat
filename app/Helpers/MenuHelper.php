@@ -23,8 +23,8 @@ class MenuHelper
             ],
             [
                 'icon' => 'forms',
-                'name' => 'Respon Pengaduan',
-                'path' => '/response_pengaduan',
+                'name' => 'Pengaduan Selesai',
+                'path' => '/pengaduan_selesai',
             ],
             [
                 'icon' => 'ui-elements',
@@ -46,24 +46,24 @@ class MenuHelper
                 'path' => '/dashboard_user',
             ],
             [
+                'icon' => 'forms',
+                'name' => 'Buat Pengaduan Baru',
+                'path' => '/form_pengaduan',
+            ],
+            [
                 'icon' => 'tables',
                 'name' => 'Pengaduan',
                 'path' => '/user_pengaduan',
             ],
             [
                 'icon' => 'forms',
-                'name' => 'Buat Pengaduan Baru',
-                'path' => '/form_pengaduan',
+                'name' => 'Respon Pengaduan',
+                'path' => '/response_pengaduan',
             ],
             [
                 'icon' => 'user-profile',
                 'name' => 'Profil',
                 'path' => '/profile',
-            ],
-            [
-                'icon' => 'calendar',
-                'name' => 'Calendar',
-                'path' => '/basic-tables',
             ],
         ];
     }

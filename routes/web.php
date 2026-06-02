@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -129,6 +130,26 @@ Route::post('/responser_respon/{id}', [ComplaintController::class, 'responseStor
 
 // Update status Pengaduan
 Route::put('/pengaduan/{id}/status', [ComplaintController::class, 'StatusUpdate'])->name('pengaduan.statusUpdate');
+
+// Menuju semua pengaduan selesai
+Route::get('/pengaduan_selesai', [ComplaintController::class, 'selesai'])->name('pengaduan.finished');
+
+// Bar Chart
+Route::get('/bar-chart', function () {
+    $recent = \App\Models\Complaint::with('user')->latest()->take(6)->get();
+    $chartData = \App\Models\Complaint::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+        ->whereYear('created_at', date('Y'))
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get()
+        ->keyBy('month');
+    
+    $monthlyData = [];
+    for ($i = 1; $i <= 12; $i++) {
+        $monthlyData[] = $chartData->has($i) ? $chartData[$i]->total : 0;
+    }
+    return view('dashboard.admin', compact('recent', 'monthlyData'));
+});
 });
 
 require __DIR__.'/auth.php';

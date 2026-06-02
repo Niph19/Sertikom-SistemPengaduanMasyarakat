@@ -17,20 +17,26 @@ class ComplaintController extends Controller
     {
         return view('complaints.create');
     }
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $sortStatus = $request->get('sort_status', 'asc');
+        $statusOrder = "FIELD(status, 'Pending', 'Diproses', 'Selesai', 'Ditolak')";
 
         if ($user->role === 'admin') {
-            $pengaduan = Complaint::with('user')->get();
-            return view('complaints.admin-index', compact('pengaduan'));
+            $pengaduan = Complaint::with('user')
+                ->where('status', '!=', 'Selesai')
+                ->orderByRaw($statusOrder . ' ' . ($sortStatus === 'desc' ? 'DESC' : 'ASC'))
+                ->get();
+            return view('complaints.admin-index', compact('pengaduan', 'sortStatus'));
         }
 
         $pengaduan = Complaint::with('user')
             ->where('user_id', $user->id)
+            ->orderByRaw($statusOrder . ' ' . ($sortStatus === 'desc' ? 'DESC' : 'ASC'))
             ->get();
 
-        return view('complaints.user-index', compact('pengaduan'));
+        return view('complaints.user-index', compact('pengaduan', 'sortStatus'));
     }
     public function store(Request $request)
     {
@@ -55,7 +61,7 @@ class ComplaintController extends Controller
             'photo' => $photo,
         ]);
 
-        return redirect()->route('pengaduan.index');
+        return redirect()->back()->with('success', 'Data Berhasil Disimpan!');
     }
 
     public function show($id): View
@@ -151,12 +157,16 @@ class ComplaintController extends Controller
             'response' => $request->response,
         ]);
 
-        return redirect()->route('pengaduan.index');
+        return redirect()->route('admin_pengaduan.index');
     }
 
     public function ResponseIndex()
     {
-        $responses = Response::with('complaint', 'admin')->get();
+        $responses = Response::with('complaint')
+            ->whereHas('complaint', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->get();
         return view('responses.index', compact('responses'));
     }
 
@@ -170,5 +180,14 @@ class ComplaintController extends Controller
         $complaint->update(['status' => $request->status]);
 
         return redirect()->back()->with('success', 'Status pengaduan berhasil diperbarui.');
+    }
+
+    public function selesai()
+    {
+        $pengaduan = Complaint::with('user')
+            ->where('status', 'Selesai')
+            ->get();
+
+        return view('complaints.finish', compact('pengaduan'));
     }
 }

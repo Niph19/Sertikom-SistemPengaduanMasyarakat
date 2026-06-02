@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="From Elements" />
-    <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <x-common.component-card title="Default Inputs">
+    <div class="grid grid-cols-1 gap-6">
+        <x-common.component-card title="Membuat Pengaduan">
 
             <form action="{{ route('create.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -16,7 +15,7 @@
             </div>
 
             <div>
-                <label class="mb-1.5 block text-md font-medium text-gray-700 dark:text-gray-400">
+                <label class="mb-1.5 block text-md font-medium text-gray-700 dark:text-gray-400 mt-3.5">
                     Deskripsi Pengaduan
                 </label>
                 <textarea rows="6" name="deskripsi_pengaduan" id="deskripsi_pengaduan"
@@ -25,7 +24,7 @@
             </div>
 
             <div>
-                <label class="mb-1.5 block text-md font-medium text-gray-700 dark:text-gray-400">
+                <label class="mb-1.5 block text-md font-medium text-gray-700 dark:text-gray-400 mt-2">
                     Lokasi
                 </label>
                 <input type="text" name="lokasi_pengaduan" id="lokasi_pengaduan" placeholder="Masukkan lokasi pengaduan"
@@ -33,7 +32,7 @@
             </div>
 
             <div>
-                <label class="mb-1.5 block text-md font-medium text-gray-700 dark:text-gray-400">
+                <label class="mb-1.5 mt-3 block text-md font-medium text-gray-700 dark:text-gray-400">
                     Foto Pengaduan
                 </label>
 
@@ -60,6 +59,8 @@
             </div>
             
             </form>
+        </x-common.component-card>
+    </div>
 <script>
     document.getElementById('foto_pengaduan').addEventListener('change', function(e) {
         const fileName = e.target.files[0]?.name;
@@ -70,6 +71,4 @@
         }
     });
 </script>
-        </x-common.component-card>
-    </div>
 @endsection

@@ -10,6 +10,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
 
     <!-- Alpine.js -->
     {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
@@ -131,7 +132,32 @@
         </div>
 
     </div>
-
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
+        });
+    });
+</script>
+@endif
+@if($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            title: 'Gagal Validasi!',
+            text: "{!! implode('\n', $errors->all()) !!}",
+            icon: 'error',
+            confirmButtonText: 'Perbaiki'
+        });
+    });
+</script>
+@endif
 </body>
 @stack('scripts')
 
