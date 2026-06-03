@@ -167,7 +167,7 @@
                                                         action="{{ route('pengaduan.destroy', $complaint->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" href="#"
+                                                        <button type="button" onclick="confirmDelete('delete-id-{{ $complaint->id }}')"
                                                             class="flex w-full px-3 py-2 font-medium text-center text-gray-500 rounded-lg text-theme-xs hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
                                                             role="menuitem">
                                                             Delete
@@ -246,4 +246,24 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+<script>
+    function confirmDelete(formId) {
+        Swal.fire({
+            title: 'Hapus Pengaduan?',
+            text: 'Data yang dihapus tidak dapat dikembalikan.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF4444',
+            cancelButtonColor: '#6B7280',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+</script>
+@endpush
 @endsection
