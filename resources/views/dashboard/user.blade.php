@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="grid grid-cols-5 gap-4 md:gap-4 xl:grid-cols-5">
+    <div class="grid grid-cols-1 gap-4 md:gap-4 xl:grid-cols-5">
         {{-- Total Pengaduan --}}
         <div class="grid grid-cols-1 gap-4 md:gap-4">
             <div class="flex items-center gap-5 rounded-2xl border border-gray-200 bg-white p-3.5 dark:border-gray-800 dark:bg-white/[0.03]">

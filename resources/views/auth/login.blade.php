@@ -16,12 +16,12 @@
             <div>
                 <label class="font-medium"> Email </label>
                 <input type="email" id="email" name="email" placeholder="info@gmail.com"
-                    class="w-full mt-2 px-3 py-2 text-white bg-transparent outline-none border focus:border-red-600 shadow-sm rounded-lg" />
+                    class="w-full mt-2 px-3 py-2 text-white bg-transparent outline-none border focus:border-blue-600 shadow-sm rounded-lg" />
             </div>
             <div x-data="{ showPassword: false }" class="relative mt-3">
                 <label class="font-medium"> Password </label>
                 <input :type="showPassword ? 'text' : 'password'" placeholder="Enter your password" id="password" name="password"
-                    class="w-full mt-2 px-3 py-2 text-white bg-transparent outline-none border focus:border-red-600 shadow-sm rounded-lg" />
+                    class="w-full mt-2 px-3 py-2 text-white bg-transparent outline-none border focus:border-blue-600 shadow-sm rounded-lg" />
                 <span @click="showPassword = !showPassword"
                     class="absolute top-13 right-4 z-30 -translate-y-1/2 cursor-pointer text-white dark:text-white">
                     <svg x-show="!showPassword" class="fill-current" width="20" height="20" viewBox="0 0 20 20"
@@ -45,7 +45,7 @@
                         <div class="relative">
                             <input type="checkbox" id="checkboxLabelOne" class="sr-only"
                                 @change="checkboxToggle = !checkboxToggle" />
-                            <div :class="checkboxToggle ? 'border-red-500 bg-red-500' :
+                            <div :class="checkboxToggle ? 'border-blue-500 bg-blue-500' :
                                                                         'bg-transparent border-gray-300 dark:border-gray-700'"
                                 class="mr-3 flex h-5 w-5 items-center justify-center rounded-md border-[1.25px]">
                                 <span :class="checkboxToggle ? '' : 'opacity-0'">
@@ -60,19 +60,19 @@
                         Keep me logged in
                     </label>
                 </div>
-                <a href="/reset-password" class="text-center text-red-600 hover:text-red-500">
+                <a href="/reset-password" class="text-center text-blue-600 hover:text-blue-500">
                     Forgot password?
                 </a>
             </div>
 
             <button action="{{ route('dashboard') }}" type="submit"
-                class="w-full px-4 py-2 text-white font-medium bg-red-600 hover:bg-red-500 active:bg-red-600 rounded-lg duration-150">
+                class="w-full px-4 py-2 text-white font-medium bg-blue-600 hover:bg-blue-500 active:bg-blue-600 rounded-lg duration-150">
                 Login
             </button>
         </form>
         <p class="text-center">
             Don't have an account?
-            <a href="/register" class="font-medium text-red-600 hover:text-red-500">Register</a>
+            <a href="/register" class="font-medium text-blue-600 hover:text-blue-500">Register</a>
         </p>
     </div>
 </main>

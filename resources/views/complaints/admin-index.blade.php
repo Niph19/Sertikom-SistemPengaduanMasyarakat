@@ -6,7 +6,7 @@
             <!-- Header -->
             <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Daftar Laporan Pengaduan</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Daftar Semua Pengaduan</h3>
                 </div>
 
                 {{-- Tombol Sort Status --}}
@@ -14,20 +14,20 @@
                     <span class="text-sm text-gray-500 dark:text-gray-400">Urutkan Status:</span>
 
                     <a href="{{ request()->fullUrlWithQuery(['sort_status' => 'asc']) }}"
-                        class="px-3 py-1.5 text-sm rounded-lg border transition
-                    {{ $sortStatus === 'asc'
-        ? 'bg-blue-600 text-white border-blue-600'
+    class="px-3 py-1.5 text-sm rounded-lg border transition
+    {{ $sortStatus === 'asc'
+        ? 'bg-brand-500 text-white border-brand-500'
         : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600' }}">
-                        ↑ Ascending
-                    </a>
+    ↑ Ascending
+</a>
 
                     <a href="{{ request()->fullUrlWithQuery(['sort_status' => 'desc']) }}"
-                        class="px-3 py-1.5 text-sm rounded-lg border transition
-                    {{ $sortStatus === 'desc'
-        ? 'bg-blue-600 text-white border-blue-600'
+    class="px-3 py-1.5 text-sm rounded-lg border transition
+    {{ $sortStatus === 'desc'
+        ? 'bg-brand-500 text-white border-brand-500'
         : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600' }}">
-                        ↓ Descending
-                    </a>
+    Descending ↓
+</a>
                 </div>
             </div>
 
@@ -47,16 +47,18 @@
                                     class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-13">
                                     Pelapor</th>
                                 <th scope="col"
-                                    class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400 max-w-50">
+                                    class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400 max-w-40">
                                     Judul Pengaduan</th>
                                 <th scope="col"
                                     class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-15">
                                     Lokasi</th>
+                                    <th scope="col"
+                                    class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-10">
+                                    Tanggal</th>
                                 <th scope="col"
                                     class="px-4 py-3 font-normal text-gray-500 text-center text-theme-sm dark:text-gray-400 max-w-10">
                                     Status</th>
-                                <th scope="col" class="relative pe-2 py-3 capitalize max-w-5">
-                                    <span class="sr-only">Actions</span>
+                                <th scope="col" class="relative pe-2 py-3 capitalize max-w-6">
                                 </th>
                             </tr>
                         </thead>
@@ -78,15 +80,19 @@
                                         <div class="text-sm text-gray-500 max-w-30 dark:text-gray-400">
                                             {{ Str::limit($complaint->user->name, 15) }}</div>
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap max-w-50">
+                                    <td class="px-4 py-4 whitespace-nowrap max-w-40">
                                         <div class="text-sm font-semibold text-gray-500 dark:text-white">{{ $complaint->title }}
                                         </div>
                                         <div class="text-sm text-gray-500 dark:text-gray-400">
-                                            {{ Str::limit($complaint->description, 70) }}</div>
+                                            {{ Str::limit($complaint->description, 50) }}</div>
                                     </td>
                                     <td class="px-4 py-4 text-center whitespace-nowrap max-w-15">
                                         <div class="text-md text-gray-500 dark:text-gray-400">
                                             {{ Str::limit($complaint->location, 15) }}</div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center whitespace-nowrap max-w-10">
+                                        <div class="text-md text-gray-500 dark:text-gray-400">
+                                            {{ $complaint->created_at->format('d M Y') }}</div>
                                     </td>
                                     <td class="px-4 py-4 text-center whitespace-nowrap max-w-10">
                                         <div class="relative inline-block" x-data="{ open: false }">
@@ -136,7 +142,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="pe-2 py-4 text-sm font-medium text-right whitespace-nowrap max-w-5">
+                                    <td class="pe-2 py-4 text-sm font-medium text-right whitespace-nowrap max-w-6">
                                         <div class="flex justify-center relative">
                                             <x-common.table-dropdown>
                                                 <x-slot name="button">
@@ -180,7 +186,63 @@
 
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
-                {{-- <div class="text-sm text-gray-500 dark:text-gray-400">Menampilkan semua pengaduan.</div> --}}
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
+    @if ($pengaduan->hasPages())
+        <div class="flex items-center justify-between">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Menampilkan {{ $pengaduan->firstItem() }}–{{ $pengaduan->lastItem() }}
+                dari {{ $pengaduan->total() }} pengaduan
+            </p>
+
+            <div class="flex items-center gap-1">
+
+                {{-- Prev --}}
+                @if ($pengaduan->onFirstPage())
+                    <span class="px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed dark:border-gray-700 dark:text-gray-600">
+                        ← Prev
+                    </span>
+                @else
+                    <a href="{{ $pengaduan->appends(request()->query())->previousPageUrl() }}"
+                        class="px-3 py-1.5 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition dark:border-gray-600 dark:text-gray-400 dark:hover:bg-white/5">
+                        ← Prev
+                    </a>
+                @endif
+
+                {{-- Nomor halaman pakai getUrlRange() --}}
+                @foreach ($pengaduan->appends(request()->query())->getUrlRange(1, $pengaduan->lastPage()) as $page => $url)
+                    @if ($page == $pengaduan->currentPage())
+                        <span class="px-3 py-1.5 text-sm rounded-lg border border-brand-500 bg-brand-500 text-white font-semibold">
+                            {{ $page }}
+                        </span>
+                    @else
+                        <a href="{{ $url }}"
+                            class="px-3 py-1.5 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition dark:border-gray-600 dark:text-gray-400 dark:hover:bg-white/5">
+                            {{ $page }}
+                        </a>
+                    @endif
+                @endforeach
+
+                {{-- Next --}}
+                @if ($pengaduan->hasMorePages())
+                    <a href="{{ $pengaduan->appends(request()->query())->nextPageUrl() }}"
+                        class="px-3 py-1.5 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition dark:border-gray-600 dark:text-gray-400 dark:hover:bg-white/5">
+                        Next →
+                    </a>
+                @else
+                    <span class="px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed dark:border-gray-700 dark:text-gray-600">
+                        Next →
+                    </span>
+                @endif
+
+            </div>
+        </div>
+    @else
+        {{-- Fallback jika semua muat 1 halaman --}}
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+            Menampilkan semua {{ $pengaduan->total() }} pengaduan
+        </p>
+    @endif
+</div>
             </div>
         </div>
     </div>

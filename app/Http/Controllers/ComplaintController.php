@@ -27,14 +27,14 @@ class ComplaintController extends Controller
             $pengaduan = Complaint::with('user')
                 ->where('status', '!=', 'Selesai')
                 ->orderByRaw($statusOrder . ' ' . ($sortStatus === 'desc' ? 'DESC' : 'ASC'))
-                ->get();
+                ->paginate(5);
             return view('complaints.admin-index', compact('pengaduan', 'sortStatus'));
         }
 
         $pengaduan = Complaint::with('user')
             ->where('user_id', $user->id)
             ->orderByRaw($statusOrder . ' ' . ($sortStatus === 'desc' ? 'DESC' : 'ASC'))
-            ->get();
+            ->paginate(5);
 
         return view('complaints.user-index', compact('pengaduan', 'sortStatus'));
     }

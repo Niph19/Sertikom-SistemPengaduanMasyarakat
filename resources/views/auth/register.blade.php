@@ -4,7 +4,7 @@
     <main class="w-full h-screen flex flex-col items-center justify-center px-4">
     <div class="max-w-sm w-full text-white space-y-5">
         <div class="text-center pb-0">
-            {{-- <img src="{{ asset('images/logo_kota_bogor.png') }}" width="150" class="mx-auto" /> --}}
+            <img src="{{ asset('images/logo_kota_bogor.png') }}" width="150" class="mx-auto" />
             <div class="mt-5">
                 <h3 class="text-white text-2xl font-bold sm:text-3xl">
                     Register
@@ -93,13 +93,13 @@
             </div> --}}
 
             <button action="{{ route('register') }}" type="submit"
-                class="w-full px-4 py-2 mt-5     text-white font-medium bg-red-600 hover:bg-red-500 active:bg-red-600 rounded-lg duration-150">
+                class="w-full px-4 py-2 mt-5     text-white font-medium bg-blue-600 hover:bg-blue-500 active:bg-blue-600 rounded-lg duration-150">
                 Register
             </button>
         </form>
         <p class="text-center">
             Already have an account?
-            <a href="/login" class="font-medium text-red-600 hover:text-red-500">Login</a>
+            <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Login</a>
         </p>
     </div>
 </main>

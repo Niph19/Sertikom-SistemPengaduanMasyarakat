@@ -12,13 +12,13 @@ class MenuHelper
         if ($role == 'admin') {
         return [
             [
-                'icon' => 'charts',
+                'icon' => 'dashboard',
                 'name' => 'Dashboard',
                 'path' => '/dashboard_admin',
             ],
             [
                 'icon' => 'tables',
-                'name' => 'Laporan Pengaduan',
+                'name' => 'Pengaduan Masyarakat',
                 'path' => '/admin_pengaduan',
             ],
             [
@@ -26,16 +26,7 @@ class MenuHelper
                 'name' => 'Pengaduan Selesai',
                 'path' => '/pengaduan_selesai',
             ],
-            [
-                'icon' => 'ui-elements',
-                'name' => 'Kelola Admin',
-                'path' => '',
-            ],
-            [
-                'icon' => 'user-profile',
-                'name' => 'Profil',
-                'path' => '/profile',
-            ],
+            
         ];
         }
     else {
@@ -56,14 +47,9 @@ class MenuHelper
                 'path' => '/user_pengaduan',
             ],
             [
-                'icon' => 'forms',
+                'icon' => 'tables',
                 'name' => 'Respon Pengaduan',
                 'path' => '/response_pengaduan',
-            ],
-            [
-                'icon' => 'user-profile',
-                'name' => 'Profil',
-                'path' => '/profile',
             ],
         ];
     }

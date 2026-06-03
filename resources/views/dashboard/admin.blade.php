@@ -99,8 +99,8 @@
             </div>
         </div>
     </div>
-    <div class="flex gap-4 mt-4">
-        <div class="w-3/5 rounded-2xl border border-gray-200 bg-white px-5 pb-4 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
+    <div class="flex flex-col lg:flex-row gap-4 mt-4">
+        <div class="w-full lg:w-3/5 rounded-2xl border border-gray-200 bg-white px-5 pb-4 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
             <div class="flex flex-col gap-4 mb-4 sm:flex-row sm:justify-between">
                 <div class="w-full">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -115,7 +115,7 @@
                 <div id="chartPengaduan" class="min-w-full"></div>
             </div>
         </div>
-        <div class="w-2/5 rounded-2xl border border-gray-200 bg-white pt-4 pb-4 px-5 dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="w-full lg:w-2/5 rounded-2xl border border-gray-200 bg-white pt-4 pb-3 px-5 dark:border-gray-800 dark:bg-white/[0.03]">
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
                     Pengaduan Terbaru
@@ -159,7 +159,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="px-3 py-2 border-t border-gray-200 dark:border-gray-700">
+                <div class="px-3 pt-3.5 border-t border-gray-200 dark:border-gray-700">
                     <a href="{{ route('admin_pengaduan.index') }}"
                         class="block text-center text-xs font-medium dark:text-blue-300 hover:underline cursor-pointer">
                         Lihat Selengkapnya</a>
